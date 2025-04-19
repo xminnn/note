@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ai绘画</title>
+    <title>ai对话</title>
     <link rel="stylesheet" href="../index.css" cache="force">
 </head>
 
@@ -244,15 +244,15 @@
 </div>
 </div>
 <div class="node-item">
-<div id="article-1745056238676" class="node-one">
+<div id="article-1745057554808" class="node-one">
 <div class="tab_1"></div>
-<a clas="node-name" href="./1745056238676.html">ai对话</a>
+<a clas="node-name" href="./1745057554808.html">ai对话</a>
 </div>
 </div>
 <div class="node-item">
-<div id="article-1745056238677" class="node-one">
+<div id="article-1745057554809" class="node-one">
 <div class="tab_1"></div>
-<a clas="node-name" href="./1745056238677.html">ai绘画</a>
+<a clas="node-name" href="./1745057554809.html">ai绘画</a>
 </div>
 </div>
 </div>
@@ -415,79 +415,16 @@
         </div>
         <div class="right-container">
             <div id="md-container">
-                <div class="title"> ai绘画 </div>
+                <div class="title"> ai对话 </div>
                 <div class="info">
-                    <div class="create_time">创建:2025-04-19 17:50</div>
-                    <div class="update_time">更新:2025-04-19 17:50</div>
+                    <div class="create_time">创建:2025-04-19 18:12</div>
+                    <div class="update_time">更新:2025-04-19 18:12</div>
                 </div>
                 <div class="line"></div>
 
-                <div id="md-container-content" style="position: relative;"><h3 id="stablediffusionwebui">stable-diffusion-webui</h3>
-<ol>
-<li><p>安装python3.10，注意别安装高版本，点击webui-user.bat会提示安装合适的版本，卸载其他版本重新安装即可</p></li>
-<li><p>设置git代理，设置国内pip加速. 注意使用阿里源，不要使用清华源, 会出现问题，参考文章：<a href="https://www.cnblogs.com/aligege/p/17481838.html">https://www.cnblogs.com/aligege/p/17481838.html</a></p>
-<pre><code class="sh language-sh">pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
-</code></pre></li>
-<li><p>修改webui-user.bat</p>
-<pre><code class="sh language-sh">## 显卡内存 8GB上
-set COMMANDLINE_ARGS=--enable-insecure-extension-access
-## 显卡内存 4G到8G
-set COMMANDLINE_ARGS=--lowvram --opt-split-attention --enable-insecure-extension-access
-## 显卡内存 小于等于4GB
-set COMMANDLINE_ARGS=--medvram --opt-split-attention --enable-insecure-extension-access
-## 无显卡，仅cpu运行
-set COMMANDLINE_ARGS=--skip-torch-cuda-test --no-half --precision full --use-cpu all
-</code></pre></li>
-<li><p>点击 webui-user.bat</p></li>
-</ol>
-<p>可能出现的问题以及解决方案：</p>
-<ol>
-<li><p>pip从github中安装错误</p>
-<pre><code class="txt language-txt">RuntimeError: Couldn't install open_clip.
-Command: "D:\Desktop\stable-diffusion-webui\venv\Scripts\python.exe" -m pip install https://github.com/mlfoundations/open_clip/archive/bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b.zip --prefer-binary
-Error code: 2
-</code></pre>
-<p>解决：</p>
-<p>手动下载 <a href="https://github.com/mlfoundations/open_clip/archive/bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b.zip">https://github.com/mlfoundations/open_clip/archive/bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b.zip</a> 到 D:\Desktop\stable-diffusion-webui\venv\Scripts 目录，然后在该目录执行 </p>
-<pre><code class="sh language-sh">.\python.exe -m pip instal bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b.zip 
-</code></pre>
-<p>即可安装，然后重新点击 webui-user.bat</p></li>
-<li><p>模型下载慢的话，可以关闭重新打开，重新下载，也可以手动下载：</p>
-<pre><code class="txt language-txt">Downloading: "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors" 
-to D:\Desktop\hxm\stable-diffusion-webui\models\Stable-diffusion\v1-5-pruned-emaonly.safetensors
-
-0%|                                                                                      | 0.00/3.97G [00:00&lt;?, ?B/s]
-</code></pre></li>
-</ol>
-<h3 id="">插件安装</h3>
-<p>可以从github上找插件，通过 Extensions &gt; Install from URL &gt; URL for extension's git repository 安装，安装后需要重启</p>
-<p>推荐插件：</p>
-<ul>
-<li><a href="https://github.com/Physton/sd-webui-prompt-all-in-one">https://github.com/Physton/sd-webui-prompt-all-in-one</a></li>
-<li><a href="https://github.com/thisjam/sd-webui-oldsix-prompt">https://github.com/thisjam/sd-webui-oldsix-prompt</a></li>
-</ul>
-<h3 id="-1">模型下载网站</h3>
-<p>SD模型下载：<br />
-openart.ai: <a href="https://openart.ai/discovery/sd-1005862904416976947">https://openart.ai/discovery/sd-1005862904416976947</a><br />
-civitai： <a href="https://civitai.com/models/5100/cutescrap-05v">https://civitai.com/models/5100/cutescrap-05v</a><br />
-四比三：<a href="https://www.4b3.com/">https://www.4b3.com/</a></p>
-<h3 id="-2">模型推荐</h3>
-<p>生成应用图标：<br />
-<a href="https://civitai.com/models/50944/logogotypes">https://civitai.com/models/50944/logogotypes</a><br />
-<a href="https://civitai.com/models/49021/minimalist-icons">https://civitai.com/models/49021/minimalist-icons</a><br />
-<a href="https://civitai.com/models/21334/sticker-generator-768x768">https://civitai.com/models/21334/sticker-generator-768x768</a></p>
-<p><a href="https://civitai.com/models/5406/ligne-claire-stylecogecha">https://civitai.com/models/5406/ligne-claire-stylecogecha</a><br />
-<a href="https://civitai.com/models/6488/flonix-mj-style">https://civitai.com/models/6488/flonix-mj-style</a></p>
-<p>像素风格：<br />
-<a href="https://civitai.com/models/44960/mpixel">https://civitai.com/models/44960/mpixel</a></p>
-<p>动画类：<br />
-<a href="https://civitai.com/tag/anime">https://civitai.com/tag/anime</a></p>
-<p><a href="https://huggingface.co/YoungMasterFromSect/Trauter_LoRAs">https://huggingface.co/YoungMasterFromSect/Trauter_LoRAs</a></p>
-<h3 id="-3">其他网址记录</h3>
-<p>在线AI绘画网址集合： <a href="https://github.com/hua1995116/awesome-ai-painting">https://github.com/hua1995116/awesome-ai-painting</a><br />
-InvokeAI - Stable Diffusion另一个WebUI: <a href="https://github.com/invoke-ai/InvokeAI">https://github.com/invoke-ai/InvokeAI</a><br />
-模型文件类型以及存放位置讲解：<a href="https://muhou.net/document/236553.html">https://muhou.net/document/236553.html</a><br />
-Stable Diffusion SDXL1.0已经在Discord上免费用：<a href="https://mp.weixin.qq.com/s?__biz=Mzg5NjUxODYyNw==&mid=2247486581&idx=1&sn=486eaab4e0d6f47b80a4dd7f5ede3dd4&chksm=c07e9cf9f70915efe4a336905ce18b25df7403c91ff394294d3f2fbb210bba0a974b76a3a490&scene=132#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg5NjUxODYyNw==&mid=2247486581&idx=1&sn=486eaab4e0d6f47b80a4dd7f5ede3dd4&chksm=c07e9cf9f70915efe4a336905ce18b25df7403c91ff394294d3f2fbb210bba0a974b76a3a490&scene=132#wechat_redirect</a></p></div>
+                <div id="md-container-content" style="position: relative;"><p><a href="https://github.com/THUDM/ChatGLM-6B">https://github.com/THUDM/ChatGLM-6B</a><br />
+<a href="https://github.com/THUDM/GLM-130B">https://github.com/THUDM/GLM-130B</a></p>
+<p>ChatGLM-6B 是一个开源的、支持中英双语的对话语言模型，基于<a href="https://github.com/THUDM/GLM">General Language Model (GLM)</a> 架构，具有 62 亿参数。结合模型量化技术，用户可以在消费级的显卡上进行本地部署（INT4 量化级别下最低只需 6GB 显存）。 ChatGLM-6B 使用了和 ChatGPT 相似的技术，针对中文问答和对话进行了优化。经过约 1T 标识符的中英双语训练，辅以监督微调、反馈自助、人类反馈强化学习等技术的加持，62 亿参数的 ChatGLM-6B 已经能生成相当符合人类偏好的回答，更多信息请参考我们的<a href="https://chatglm.cn/blog">博客</a>。</p></div>
             </div>
         </div>
     </div>
