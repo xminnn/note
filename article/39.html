@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh" οndragstart="return false;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>huffman压缩算法</title>
+    <link rel="stylesheet" href="../index.css" cache="force">
+</head>
+
+<body οndragstart="return false;">
+    <div style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; padding: 0;">
+        <div class="left-container">
+            <div class="header-container">
+                <a href="https://github.com/xminnn"><img src="../icon.jpg" cache="force"></a>
+            </div>
+            <div id="dir-container">
+                <div class="node-dir">
+<div class="node-dir-name">c++</div>
+<div class="node-children">
+<div class="node-item">
+<div id="article-1" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./1.html">共享内存</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-2" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./2.html">开源项目</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-3" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./3.html">开源游戏引擎以及工具</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-4" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./4.html">性能分析</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-5" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./5.html">fopen</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-6" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./6.html">icmp实现ping</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-7" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./7.html">[⭐]基础总结</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-8" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./8.html">c++模板的偏特化与全特化</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-9" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./9.html">mmap</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-10" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./10.html">推荐文章</a>
+</div>
+</div>
+</div>
+</div>
+<div class="node-dir">
+<div class="node-dir-name">linux</div>
+<div class="node-children">
+<div class="node-item">
+<div id="article-11" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./11.html">常见问题</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-12" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./12.html">常用命令</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-13" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./13.html">代理</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-14" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./14.html">用户与权限</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-15" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./15.html">dns修改</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-16" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./16.html">qemu</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-17" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./17.html">ssh穿透</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-18" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./18.html">surfacebook2安装archlinux记录</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-19" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./19.html">systemctl守护自定义程序</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-20" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./20.html">配置网络</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-21" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./21.html">镜像源</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-22" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./22.html">设置core文件</a>
+</div>
+</div>
+</div>
+</div>
+<div class="node-dir">
+<div class="node-dir-name">其他</div>
+<div class="node-children">
+<div class="node-item">
+<div id="article-55" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./55.html">python简单日志工具</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-56" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./56.html">开源协议</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-57" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./57.html">终端输出特殊代码</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-58" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./58.html">windows相关</a>
+</div>
+</div>
+</div>
+</div>
+<div class="node-dir">
+<div class="node-dir-name">工具</div>
+<div class="node-children">
+<div class="node-item">
+<div id="article-46" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./46.html">vscode</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-47" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./47.html">git</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-48" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./48.html">svn</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-49" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./49.html">AI对话</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-50" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./50.html">AI绘画</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-51" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./51.html">软媒工具组件精选</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-52" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./52.html">winfsp</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-53" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./53.html">vim</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-54" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./54.html">工具大全</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-1745056238676" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./1745056238676.html">ai对话</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-1745056238677" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./1745056238677.html">ai绘画</a>
+</div>
+</div>
+</div>
+</div>
+<div class="node-dir">
+<div class="node-dir-name">服务</div>
+<div class="node-children">
+<div class="node-item">
+<div id="article-23" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./23.html">redis</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-24" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./24.html">mysql</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-25" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./25.html">mongo</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-26" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./26.html">kafka</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-27" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./27.html">elasticsearch</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-28" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./28.html">docker</a>
+</div>
+</div>
+</div>
+</div>
+<div class="node-dir">
+<div class="node-dir-name">架构</div>
+<div class="node-children">
+<div class="node-item">
+<div id="article-29" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./29.html">游戏任务系统</a>
+</div>
+</div>
+</div>
+</div>
+<div class="node-dir">
+<div class="node-dir-name">算法</div>
+<div class="node-children">
+<div class="node-item">
+<div id="article-30" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./30.html">查找算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-31" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./31.html">排序算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-32" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./32.html">跳表</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-33" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./33.html">时间轮</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-34" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./34.html">缓存淘汰算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-35" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./35.html">调度算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-36" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./36.html">加密算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-37" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./37.html">寻路算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-38" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./38.html">正太分布随机数算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-39" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./39.html">huffman压缩算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-40" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./40.html">lz77压缩算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-41" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./41.html">md5算法</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-42" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./42.html">二叉树</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-43" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./43.html">栈和队列</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-44" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./44.html">其他常见算法题</a>
+</div>
+</div>
+<div class="node-item">
+<div id="article-45" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./45.html">链表</a>
+</div>
+</div>
+</div>
+</div>
+
+            </div>
+        </div>
+        <div class="right-container">
+            <div id="md-container">
+                <div class="title"> huffman压缩算法 </div>
+                <div class="info">
+                    <div class="create_time">创建:2023-10-27 16:47</div>
+                    <div class="update_time">更新:2023-10-27 17:06</div>
+                </div>
+                <div class="line"></div>
+
+                <div id="md-container-content" style="position: relative;"><pre><code class="cpp language-cpp">#pragma once
+#include &lt;memory.h&gt;
+
+class huffman {
+    template&lt;int n&gt;
+    struct bits {    // 位存储器，不使用std::bitset，实际存储顺序有问题，多次位运算性能也存在问题
+        static const int size = n / 8;
+        unsigned char v[size] = {0};
+        unsigned char get(int i) const {    // i 从前往后
+            int a = i / 8;
+            int b = 7 - i % 8;
+            return (v[a] &amp; (1 &lt;&lt; b)) &gt;&gt; b;
+        }
+        void or_tail(unsigned char p) {
+            v[size - 1] |= p;
+        }
+        void or_merge(const bits&amp; p, int from, int target, int len) {
+            for (int i = 0; i &lt; len; i++) {
+                int a = (i + target) / 8;
+                int b = (i + target) % 8;
+                v[a] |= p.get(i + from) &lt;&lt; (7 - b);
+            }
+        }
+    };
+
+    typedef bits&lt;256&gt; code_type;
+
+    struct element {
+        unsigned int count;
+        unsigned short i;    // 索引，也是char的ascci码
+
+        unsigned short left;
+        unsigned short right;
+        code_type code;    // 编码存放，这里256位，树的最大层级是255层
+
+        // 按照 count 降序
+        static int compare1(element* a, element* b) {
+            if (b-&gt;count &gt; a-&gt;count)
+                return 1;
+            if (b-&gt;count &lt; a-&gt;count)
+                return -1;
+            return 0;
+        }
+        // 按照index升序
+        static int compare2(element* a, element* b) {
+            if (a-&gt;i &gt; b-&gt;i)
+                return 1;
+            if (a-&gt;i &lt; b-&gt;i)
+                return -1;
+            return 0;
+        }
+    };
+
+    static void quick_sort(element* eles, int start, int end, int (*compare)(element* a, element* b)) {
+        if (start &lt; end) {
+            int i = start, j = end;
+            element it = eles[i];    // 比较值，且空出来一个位置
+            while (i &lt; j) {
+                // 从end-&gt;start查找一个比it大的，放到空出来的位置i，且产生新的空位j
+                while (i &lt; j &amp;&amp; compare(&amp;eles[j], &amp;it) &gt;= 0) {
+                    j--;
+                }
+                if (i &lt; j) {
+                    eles[i] = eles[j];
+                    i++;
+                }
+                // 从start-&gt;end查找一个比it小的，放到空出来的位置j，且产生新的空位i
+                while (i &lt; j &amp;&amp; compare(&amp;eles[i], &amp;it) &lt; 0) {
+                    i++;
+                }
+                if (i &lt; j) {
+                    eles[j] = eles[i];
+                    j--;
+                }
+            }
+            eles[i] = it;
+            quick_sort(eles, start, i - 1, compare);
+            quick_sort(eles, i + 1, end, compare);
+        }
+    }
+
+    // 0 左，1 右
+    static void encoding(element* root, element* index) {
+        if (root-&gt;left == 0 &amp;&amp; root-&gt;right == 0) {
+            return;
+        }
+        index[root-&gt;left].count = root-&gt;count + 1;
+        index[root-&gt;right].count = root-&gt;count + 1;
+
+        const unsigned int buf_size = sizeof(root-&gt;code) * 8;
+        index[root-&gt;left].code = {0};
+        index[root-&gt;left].code.or_merge(root-&gt;code, buf_size - root-&gt;count, buf_size - root-&gt;count - 1, root-&gt;count);
+        index[root-&gt;right].code = index[root-&gt;left].code;
+        index[root-&gt;right].code.or_tail(1);
+
+        encoding(&amp;index[root-&gt;left], index);
+        encoding(&amp;index[root-&gt;right], index);
+    }
+
+    static element* tree(element* index) {
+        // 排序统计
+        quick_sort(index, 0, 255, element::compare1);
+        int size = 0;
+        for (; size &lt; 256; size++) {
+            if (index[size].count == 0) {
+                break;
+            }
+        }
+
+        // 构建树，每次减少一个节点，直到只有一个节点。最后一个就是根节点
+        for (int i = size; i &gt; 1; i--) {
+            element* it = &amp;index[size];
+            int m = size - 1;
+            int n = size - 2;
+            it-&gt;left = index[m].i;
+            it-&gt;right = index[n].i;
+            it-&gt;count = index[m].count + index[n].count;
+            index[m].count = 0xffffffff;    // 排到最前边，可视为删除了
+            index[n].count = 0xffffffff;
+            size++;
+            quick_sort(index, 0, size - 1, element::compare1);
+        }
+        // 获得的位置
+        unsigned short root = index[size - 1].i;
+        // 已经是乱序， 恢复需要的索引顺序
+        quick_sort(index, 0, size - 1, element::compare2);
+        for (int i = size - 1; i &gt;= 0; i--) {
+            index[i].count = 0;
+            index[index[i].i] = index[i];
+        }
+
+        // 获取编码
+        encoding(&amp;index[root], index);
+        return &amp;index[root];
+    }
+
+public:
+    static const int MAX_HEAD_SIZE = 8 + (4 + 1) * 256;
+
+    static unsigned int compress(unsigned char* input_data, unsigned int input_len, unsigned char* output_data) {
+        if (!input_data || input_len == 0 || !output_data) {
+            return 0;
+        }
+
+        element index[512] = {{0}};
+
+        // 初始化索引，因为排序会打乱，所以记录位置以供恢复
+        for (unsigned int i = 0; i &lt; 512; i++) {
+            index[i].i = i;
+        }
+
+        // 统计
+        for (unsigned int i = 0; i &lt; input_len; i++) {
+            index[input_data[i]].count += 1;
+        }
+
+        // 记录头
+        unsigned int out_offset = 0;
+        out_offset += 4;    // 预占头大小
+        memcpy(output_data + out_offset, &amp;input_len, 4);
+        out_offset += 4;
+        for (unsigned int i = 0; i &lt; 256; i++) {
+            unsigned char c = i;
+            if (index[i].count &gt; 0) {
+                memcpy(output_data + out_offset, &amp;index[i].count, 4);
+                out_offset += 4;
+                memcpy(output_data + out_offset, &amp;c, 1);
+                out_offset += 1;
+            }
+        }
+        memcpy(output_data, &amp;out_offset, 4);
+
+        // 只有一个字符，直接不需要压缩
+        if (out_offset == 13) {
+            return out_offset;
+        }
+
+        // 构建树
+        tree(index);
+
+        // flush
+        code_type buf = {0};
+        unsigned int buf_len = 0;
+        const unsigned int buf_size = sizeof(buf) * 8;
+        for (unsigned int i = 0; i &lt; input_len; i++) {
+            unsigned char c = input_data[i];
+            element* it = &amp;index[c];
+
+            unsigned int left = buf_size - buf_len;
+            if (left &lt;= it-&gt;count) {
+                buf.or_merge(it-&gt;code, buf_size - it-&gt;count, buf_len, left);
+
+                // 写入
+                memcpy(output_data + out_offset, &amp;buf, sizeof(buf));
+                out_offset += sizeof(buf);
+                buf = {0};
+                buf_len = 0;
+
+                buf.or_merge(it-&gt;code, buf_size - it-&gt;count + left, buf_len, it-&gt;count - left);
+                buf_len += it-&gt;count - left;
+            } else {
+                buf.or_merge(it-&gt;code, buf_size - it-&gt;count, buf_len, it-&gt;count);
+                buf_len += it-&gt;count;
+            }
+        }
+
+        if (buf_len &gt; 0) {
+            // 写入
+            memcpy(output_data + out_offset, &amp;buf, buf_len / 8 + 1);
+            out_offset += sizeof(buf);
+        }
+        return out_offset;
+    }
+
+    static unsigned int decompress(unsigned char* input_data, unsigned int input_len, unsigned char* output_data) {
+        if (!input_data || input_len == 0 || !output_data) {
+            return 0;
+        }
+
+        element index[512] = {{0}};
+        unsigned int out_size = 0;
+
+        // 初始化索引，因为排序会打乱，所以记录位置
+        for (unsigned int i = 0; i &lt; 512; i++) {
+            index[i].i = i;
+        }
+
+        // 获得统计
+        unsigned int head_size = 0;
+        unsigned int data_size = 0;
+        unsigned int offset = 0;
+        memcpy(&amp;head_size, input_data + offset, 4);
+        offset += 4;
+        memcpy(&amp;data_size, input_data + offset, 4);
+        offset += 4;
+
+        unsigned int _count = 0;
+        unsigned char _c = 0;
+        while (offset &lt; head_size) {
+            memcpy(&amp;_count, input_data + offset, 4);
+            offset += 4;
+            memcpy(&amp;_c, input_data + offset, 1);
+            offset += 1;
+            index[_c].count = _count;
+        }
+
+        // 特殊处理一个单字符
+        if (offset == 13) {
+            for (unsigned int i = 0; i &lt; _count; i++) {
+                *(output_data + out_size) = _c;
+                out_size += 1;
+            }
+            return out_size;
+        }
+
+        // 构建树
+        element* root = tree(index);
+
+        // 解析数据
+        unsigned char buf = 0;
+        element* current = root;
+        const int bits_count = sizeof(buf) * 8;
+        while (offset &lt; input_len &amp;&amp; out_size &lt; data_size) {
+            memcpy(&amp;buf, input_data + offset, sizeof(buf));
+            offset += sizeof(buf);
+            for (int i = 0; i &lt; bits_count; i++) {
+                unsigned char tmp = (buf &gt;&gt; (bits_count - 1 - i)) &amp; 1;
+                if (tmp == 0) {
+                    current = &amp;index[current-&gt;left];
+                } else {
+                    current = &amp;index[current-&gt;right];
+                }
+                if (current-&gt;left == 0 &amp;&amp; current-&gt;right == 0) {
+                    *(output_data + out_size) = current-&gt;i;
+                    out_size += 1;
+                    current = root;
+                }
+                if (out_size &gt;= data_size) {
+                    break;
+                }
+            }
+        }
+
+        return out_size;
+    }
+};
+</code></pre>
+<p>测试例子：</p>
+<pre><code class="cpp language-cpp">#include "huffman.h"
+#include &lt;stdio.h&gt;
+#include &lt;string&gt;
+#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+
+int main(int argc, char const *argv[]) {
+    if (argc &gt; 2) {
+        return 0;
+    }
+
+    auto start = std::chrono::high_resolution_clock::now();
+    FILE *file = fopen(argv[1], "rb");
+    if (!file) {
+        printf("not find file: %s\n", argv[1]);
+        return 0;
+    }
+    fseek(file, 0, SEEK_END);
+    unsigned int len = ftell(file);
+    fseek(file, 0, SEEK_SET);
+    unsigned char *text = new unsigned char[len];
+    memset(text, 0, len);
+    fread(text, 1, len, file);
+    fclose(file);
+    printf("input len : %u\n", len);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout &lt;&lt; "read: " &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(end - start).count() &lt;&lt; "ms" &lt;&lt; std::endl;
+    start = end;
+
+    unsigned char *output = new unsigned char[len + huffman::MAX_HEAD_SIZE];
+    memset(output, 0, len + huffman::MAX_HEAD_SIZE);
+
+    unsigned int olen = huffman::compress(text, len, output);
+    printf("output len: %u\n", olen);
+
+    end = std::chrono::high_resolution_clock::now();
+    int times = std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(end - start).count();
+    std::cout &lt;&lt; "compress: " &lt;&lt; times &lt;&lt; "ms" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "    " &lt;&lt; 1.0f * len / times * 1000 / 1024 &lt;&lt; "kb/s" &lt;&lt; std::endl;
+    start = end;
+
+    FILE *ofile = fopen((std::string(argv[1]) + ".hzip").c_str(), "wb+");
+    fwrite(output, 1, olen, ofile);
+    fclose(ofile);
+
+    end = std::chrono::high_resolution_clock::now();
+    std::cout &lt;&lt; "write: " &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(end - start).count() &lt;&lt; "ms" &lt;&lt; std::endl;
+    start = end;
+
+    memset(text, 0, len);
+    len = huffman::decompress(output, olen, text);
+    FILE *rfile = fopen((std::string(argv[1]) + ".huzip").c_str(), "wb+");
+    fwrite(text, 1, len, rfile);
+    fclose(rfile);
+
+    end = std::chrono::high_resolution_clock::now();
+    times = std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(end - start).count();
+    std::cout &lt;&lt; "decompress: " &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(end - start).count() &lt;&lt; "ms" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "    " &lt;&lt; 1.0f * len / times * 1000 / 1024 &lt;&lt; "kb/s" &lt;&lt; std::endl;
+    start = end;
+    return 0;
+}
+</code></pre>
+<p>输出示例：</p>
+<pre><code class="txt language-txt">input len : 139246592
+read: 48ms
+output len: 136604744
+compress: 8726ms
+    15583.7kb/s
+write: 676ms
+decompress: 10629ms
+    12793.6kb/s
+</code></pre></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let scrollTop = window.localStorage.getItem('scrollTop');
+        if (scrollTop) {
+            let container = document.getElementById("dir-container");
+            container.scrollTop = scrollTop;
+        } else {
+            let id = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+            id = id.substring(0, id.length - 5);
+            if (id != "index") {
+                const autoScoll = function (element, root) {
+                    element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+                };
+                console.log(`articles-${id}`);
+                autoScoll(document.getElementById(`articles-${id}`), container);
+            }
+        }
+        window.onbeforeunload = function () {
+            let container = document.getElementById("dir-container");
+            window.localStorage.setItem('scrollTop', container.scrollTop);
+        };
+    </script>
+
+    <link rel="stylesheet" href="../third/pace-theme-minimal.tmpl.css" cache="force">
+    <link rel="stylesheet" href="../third/atom-one-dark.css" cache="force">
+    <script data-pace-options='{ "ajax": false }' src="../third/pace.js" cache="force"></script>
+    <script src="../third/highlight.pack.js" cache="force"></script>
+
+    <script>
+        let mdContainer = document.getElementById("md-container");
+        mdContainer.querySelectorAll("pre code");
+        hljs.initHighlightingOnLoad();
+        for (const it of mdContainer.querySelectorAll("pre code")) {
+            hljs.highlightBlock(it);
+        }
+
+        //点击查看原图
+        for (const img of document.querySelectorAll("#md-container img")) {
+            img.onclick = function () {
+                console.log("click");
+                let newDiv = document.createElement('div');
+                newDiv.setAttribute("class", "img-view-bkg");
+
+                let hitDiv = document.createElement('div');
+                hitDiv.setAttribute("class", "img-view-hint");
+                hitDiv.innerHTML = "双击图片或者点击空白处取消图片查看";
+
+                let newImg = document.createElement('img');
+                newImg.setAttribute("class", "img-view-img");
+                newImg.src = this.src;
+
+                let newSpan = document.createElement("div");
+                newSpan.setAttribute("class", "img-view");
+                newSpan.appendChild(newDiv);
+                newSpan.appendChild(newImg);
+                newSpan.appendChild(hitDiv);
+                document.body.appendChild(newSpan);
+
+                newImg.ondblclick = function () {
+                    document.body.removeChild(newSpan);
+                };
+
+                newDiv.onclick = function () {
+                    document.body.removeChild(newSpan);
+                };
+            };
+        }
+
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            chtml: {
+                displayAlign: 'left'
+            }
+        };
+        let oldOnLoad = window.onload;
+        window.onload = () => {
+            let spt = document.createElement("script");
+            spt.setAttribute("id", "MathJax-script");
+            spt.setAttribute("async", true);
+            spt.setAttribute("src", "../third/tex-chtml.js");
+            document.body.append(spt);
+
+            if (oldOnLoad) {
+                oldOnLoad();
+            }
+        };
+    </script>
+</body>
+
+</html>
