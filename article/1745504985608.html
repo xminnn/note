@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Makefile</title>
+    <title>道具系统</title>
     <link rel="stylesheet" href="../index.css" cache="force">
 </head>
 
@@ -499,62 +499,229 @@
         </div>
         <div class="right-container">
             <div id="md-container">
-                <div class="title"> Makefile </div>
+                <div class="title"> 道具系统 </div>
                 <div class="info">
-                    <div class="create_time">创建:2025-04-20 00:07</div>
-                    <div class="update_time">更新:2025-04-20 00:07</div>
+                    <div class="create_time">创建:2025-04-24 22:27</div>
+                    <div class="update_time">更新:2025-04-24 23:28</div>
                 </div>
                 <div class="line"></div>
 
-                <div id="md-container-content" style="position: relative;"><p>快速实现一个C/C++的项目编译Makefile. </p>
-<p>只需要添加目录，就可以自动在目录下搜索所有的 .c文件(这个例子中仅展示.c, .cpp同理，注意修改编译器为g++)。根据<code>gcc -MM -MT</code>自动获取依赖的文件，组成依赖关系</p>
-<pre><code class="makefile language-makefile">export MAKEFLAGS += --no-print-directory
+                <div id="md-container-content" style="position: relative;"><p>在游戏系统中，资源、宝箱、功能道具、装备、抽卡角色、宠物等等都属于道具的一部分。换一句话来说一切可以奖励的内容都属于道具的一部分。在整个道具系统的id都需要唯一。也就是说需要按照功能进行id分段。例如道具(资源，宝箱，功能道具)id段时<code>[100000~199999]</code>, 装备id段是<code>[200000-299999]</code>…</p>
+<p>在设计接口的时候需要考虑的是：</p>
+<ol>
+<li>简洁的接口，不需要使用者理解道具内部的流程逻辑。特别是游戏系统中存在大量的奖励发放逻辑</li>
+<li>需要注意一次可能加多个道具，分别属于不同系统(常见于抽奖10连)。此时需要考虑前后添加是否会导致累计失败。需要根据策划要求判断失败是导致操作失败，还是邮件补发</li>
+<li>需要支持道具的自动打开. 因为蛋蛋 <code>奖励-&gt;道具</code> 对于很多内容是无法操作的。必须能够支持 <code>奖励-&gt;道具-&gt;奖励..</code> 这样的自动嵌套逻辑</li>
+<li>尽可能通过注册的方式让各个系统注册自己的逻辑，而不是都来道具系统写东西，导致代码混乱</li>
+<li>check和实际操作接口要分离。例如一个流程: <code>是否可以扣除金币+检查是否可以添加=&gt;扣除道具+添加</code> 如果接口不分离则会导致部分成功，数据出现错误。这也是所有的请求处理需要保证的一点，也就是 <code>一旦开始修改数据，则不允许失败</code></li>
+</ol>
+<h3 id="">表定义</h3>
+<h4 id="-1"># 道具表</h4>
+<p>id段位 10000+x</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>定义</th>
+<th>名称</th>
+<th>使用功能</th>
+<th>功能参数</th>
+<th>自动打开</th>
+<th>级别</th>
+<th>背包显示</th>
+<th>图标</th>
+<th>每日获取上限</th>
+<th>拥有上限</th>
+<th>描述</th>
+<th>获取渠道</th>
+<th>时间限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td></td>
+<td>string</td>
+<td>enum</td>
+<td>int[5]</td>
+<td>bool</td>
+<td>enum</td>
+<td>int</td>
+<td>path</td>
+<td>int</td>
+<td>int</td>
+<td>text</td>
+<td>int</td>
+<td>time</td>
+</tr>
+<tr>
+<td>100001</td>
+<td>k_gold</td>
+<td>金币</td>
+<td></td>
+<td></td>
+<td></td>
+<td>稀有</td>
+<td></td>
+<td></td>
+<td>99999999</td>
+<td>99999999</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>100002</td>
+<td></td>
+<td>一个宝箱</td>
+<td>奖励</td>
+<td>1</td>
+<td>true</td>
+<td>稀有</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="-2"># 装备表</h4>
+<p>id段位 20000+x</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>名称</th>
+<th><code>...</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>string</td>
+<td><code>...</code></td>
+</tr>
+<tr>
+<td>200001</td>
+<td>测试装备</td>
+<td><code>...</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="-3"># 奖励表(掉落表)</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>定义</th>
+<th>用途</th>
+<th>名称</th>
+<th>随机物品列表</th>
+<th>随机物品数量(max=0表示固定取min)</th>
+<th>权重</th>
+<th>随机次数</th>
+<th>可重复获得</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td></td>
+<td></td>
+<td>string</td>
+<td>ref&gt;item[10]</td>
+<td>{min:int, max:int}[10]</td>
+<td>int[10]</td>
+<td>int</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>100001</td>
+<td>100</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="-4">实现</h3>
+<pre><code class="c language-c">// 纯道具，例如：金币钻石等资源，未打开的宝箱等，功能道具等等
+struct user_item {
+    int res_id; 
+    int num;     // 数量
+    int expire_time; // 过期时间
+    short solt; // 槽位(有些游戏不自动排序)
+    short solable; // 可交易次数(有些游戏道具存在交易次数限制)
+};
+struct user_items {
+    struct user_item items[k_item_max];
+    int items_count_;
+};
 
-SRCDIR += ./ ./common/ ./handler/  ## 源代码目录列表
-INCLUDE += ./  ## 头文件列表
+// 装备
+struct user_equip {
+    int64 gid; // 与道具id对应
+    struct {
+        int attr;
+        int val
+    } attrs[4]; // 装备属性
+    int attrs_count_;
+    char wear; // 是否穿戴
+    ...
+};
+struct user_equips {
+    struct user_equip equips[100];
+    int equips_count_;
+    int gid_seq;
+};
+</code></pre>
+<p>一般游戏系统会要求所有发奖必须强制成功，超出部分走邮件。则道具系统设计如下:</p>
+<pre><code class="c language-c">void item_on_login(struct game_user* user); // 登录时清理过期道具等操作
+int item_get_num(struct game_user* user, int item_id);
+bool item_reduce_check(struct game_user* user, int item_id, int item_num);
+bool item_reduce(struct game_user* user, int item_id, int item_num, int reason, const char* code_func_where);
 
+struct item_list {
+    int64 seed; // 统一使用这个种子去随机
+    ... // 其他需要记录的固定值，例如等级，世界等级等等，方便邮件固定下来奖励
+    // 这里记录失败的item_id, item_num
+    struct {
+        int id;
+        int num;
+    } items;
+    int items_count_;
+    // 下边记录成功后的结果
+    struct user_item items;
+    struct user_equip equips;
+};
+bool item_add(struct game_user* user, struct item_list* list, int item_id, int item_num); // 打开并且check，这里不进行实际的添加逻辑
+bool item_add_finnal(struct game_user* user, struct item_list* list, int reason, const char* code_func_where);
+bool reward_add(struct game_user* user, int reward_id);
 
-GOALNAME ?= app ## 编译目标名
-CFLAGS += -g -D__debug__ -Wall -Werror -Wno-dangling-else ## 编译参数
-LDFLAGS += -lpthread -lm -rdynamic ## 链接参数
-BUILDDIR = ./build/$(GOALNAME)/ ## 构建目录
+void item_list_register(int type, func check, func add); // 各种道具系统(资源，装备，宠物，角色等等)注册对应的处理检查函数和添加函数
+</code></pre>
+<p>如果不需要强制添加成功，失败则操作失败，不走邮件，那么道具系统设计如下：</p>
+<pre><code class="c language-c">void item_on_login(struct game_user* user); // 登录时清理过期道具等操作
+int item_get_num(struct game_user* user, int item_id);
+bool item_reduce_check(struct game_user* user, int item_id, int item_num);
+bool item_reduce(struct game_user* user, int item_id, int item_num, int reason, const char* code_func_where);
 
-SOURCES += $(foreach dir, $(SRCDIR), $(wildcard $(dir)*.c)) ## 展开获得所有的头文件
-OBJECTS += $(foreach obj, $(patsubst $(dir)%.c, $(BUILDDIR)%.o, $(SOURCES:.c=.o)), $(BUILDDIR)$(obj)) ## 获得目标文件
-DEPENDENCIES := $(foreach dep, $(patsubst $(dir)%.c, $(BUILDDIR)%.d, $(SOURCES:.c=.d)), $(BUILDDIR)$(dep)) ## 获得编译的时候依赖的.d文件
-INCLUDES = $(patsubst %,-I %,$(INCLUDE)) ## 展开include
-ECHO = printf "%b\n" # 为了能正确显示颜色
+struct item_list {
+    struct user_item items;
+    struct user_equip equips;
+};
+bool item_list_add_check(struct game_user* user, struct item_list* list, int item_id, int item_num); // 打开并且check
+bool item_list_add(struct game_user* user, struct item_list* list, int reason, const char* code_func_where);
+bool reward_add_check(struct game_user* user, struct item_list* list, int reward_id); // 打开奖励且不进行实际的添加
 
-build: $(GOALNAME)
-    @:
-
-$(GOALNAME): $(OBJECTS) $(LIBRARY)
-    @$(ECHO) "\033[32m&gt; ld $@ $(RELASE_INFO) \033[0m"
-    @gcc -o $@ $^ $(LDFLAGS)
-
-$(BUILDDIR)%.d: %.c
-    @mkdir -p $(BUILDDIR)$(dir $&lt;)
-    @$(ECHO) "\033[32m&gt; mm $&lt; \033[0m"
-    @gcc -MM -MT $(BUILDDIR)$*.o $(CFLAGS) $(INCLUDES) $&lt; -o $@
-
-$(BUILDDIR)%.o: %.c
-    @mkdir -p $(BUILDDIR)$(dir $&lt;)
-    @$(ECHO) "\033[32m&gt; cc $&lt; $(RELASE_INFO) \033[0m"
-    @gcc -c $(CFLAGS) $(INCLUDES) $&lt; -o $@
-
-# 这个过滤掉不需要构建依赖目标的任务，例如clean，避免clean的时候也去生成.d文件
-FILTER_GOALS += clean
-ifeq ($(filter $(FILTER_GOALS),$(MAKECMDGOALS)),)
-ifneq ("$(MAKECMDGOALS)","")
--include $(DEPENDENCIES)
-endif
-endif
-
-clean:
-    rm -rf $(BUILDDIR) $(GOALNAME)
-    @$(ECHO) "\033[32m&gt; clean success $&lt; \033[0m"
-
-.PHONY: clean build
+void item_list_register(int type, func check, func add); // 各种道具系统(资源，装备，宠物，角色等等)注册对应的处理检查函数和添加函数
 </code></pre></div>
             </div>
         </div>
