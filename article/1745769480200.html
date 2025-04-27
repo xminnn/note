@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>开源项目</title>
+    <title>linux添加swap分区</title>
     <link rel="stylesheet" href="../index.css" cache="force">
 </head>
 
@@ -529,128 +529,23 @@
         </div>
         <div class="right-container">
             <div id="md-container">
-                <div class="title"> 开源项目 </div>
+                <div class="title"> linux添加swap分区 </div>
                 <div class="info">
-                    <div class="create_time">创建:2023-10-27 17:42</div>
-                    <div class="update_time">更新:2025-04-20 00:05</div>
+                    <div class="create_time">创建:2025-04-27 23:55</div>
+                    <div class="update_time">更新:2025-04-27 23:55</div>
                 </div>
                 <div class="line"></div>
 
-                <div id="md-container-content" style="position: relative;"><p>c/c++相关优秀开源项目</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/weolar/miniblink49">miniblink49</a></td>
-<td>一个小巧、轻量的浏览器内核, 用来取代wke和libcef</td>
-</tr>
-<tr>
-<td>libev</td>
-<td>功能齐全，高性能的时间循环，轻微地仿效libevent，但是不再像libevent一样有局限性，也修复了它的一些bug</td>
-</tr>
-<tr>
-<td>libuv</td>
-<td>跨平台异步I/O</td>
-</tr>
-<tr>
-<td>libevent</td>
-<td>事件通知库</td>
-</tr>
-<tr>
-<td>LZ4</td>
-<td>非常快速的压缩算法</td>
-</tr>
-<tr>
-<td>Snappy</td>
-<td>快速压缩和解压缩</td>
-</tr>
-<tr>
-<td>miniz</td>
-<td>单一的C源文件，紧缩/膨胀压缩库，使用zlib兼容API，ZIP归档读写，PNG写方式</td>
-</tr>
-<tr>
-<td>Thrust</td>
-<td>类似于C++标准模板库的并行算法库</td>
-</tr>
-<tr>
-<td>VexCL</td>
-<td>用于OpenCL/CUDA 的C++向量表达式模板库</td>
-</tr>
-<tr>
-<td>LevelDB</td>
-<td>快速键值存储库</td>
-</tr>
-<tr>
-<td>RocksDB</td>
-<td>来自Facebook的嵌入键值的快速存储</td>
-</tr>
-<tr>
-<td>SQLite</td>
-<td>一个完全嵌入式的，功能齐全的关系数据库，只有几百KB，可以正确包含到你的项目中</td>
-</tr>
-<tr>
-<td>Caffe</td>
-<td>快速的神经网络框架</td>
-</tr>
-<tr>
-<td>CCV</td>
-<td>以C语言为核心的现代计算机视觉库</td>
-</tr>
-<tr>
-<td>mlpack</td>
-<td>可扩展的C++机器学习库</td>
-</tr>
-<tr>
-<td>OpenCV</td>
-<td>开源计算机视觉库</td>
-</tr>
-<tr>
-<td>Recommender</td>
-<td>使用协同过滤进行产品推荐/建议的C语言库</td>
-</tr>
-<tr>
-<td>SHOGUN</td>
-<td>Shogun 机器学习工具</td>
-</tr>
-<tr>
-<td>sofia-ml</td>
-<td>用于机器学习的快速增量算法套件</td>
-</tr>
-<tr>
-<td>Box2D</td>
-<td>2D的游戏物理引擎</td>
-</tr>
-<tr>
-<td>Bullet</td>
-<td>3D的游戏物理引擎</td>
-</tr>
-<tr>
-<td>Chipmunk</td>
-<td>快速，轻量级的2D游戏物理库</td>
-</tr>
-<tr>
-<td>LiquidFun</td>
-<td>2D的游戏物理引擎</td>
-</tr>
-<tr>
-<td>ODE</td>
-<td>开放动力学引擎-开源，高性能库，模拟刚体动力学</td>
-</tr>
-<tr>
-<td>ofxBox2d</td>
-<td>Box2D开源框架包装器</td>
-</tr>
-<tr>
-<td>Simbody</td>
-<td>高性能C++多体动力学/物理库，模拟关节生物力学和机械系统，像车辆，机器人和人体骨骼</td>
-</tr>
-</tbody>
-</table></div>
+                <div id="md-container-content" style="position: relative;"><pre><code class="sh language-sh">sudo swapoff /swapfile
+sudo fallocate -l 4G /swapfile  # 创建或者扩大文件
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile        # 重新格式化
+sudo swapon /swapfile        # 重新启用
+free -h                      # 查看内存及Swap使用情况
+</code></pre>
+<p>编辑/etc/fstab文件，添加以下行实现开机自动挂载</p>
+<pre><code class="sh language-sh">/swapfile none swap sw 0 0
+</code></pre></div>
             </div>
         </div>
     </div>

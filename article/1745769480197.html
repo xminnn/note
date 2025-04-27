@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>开源项目</title>
+    <title>core保证日志写入</title>
     <link rel="stylesheet" href="../index.css" cache="force">
 </head>
 
@@ -529,128 +529,53 @@
         </div>
         <div class="right-container">
             <div id="md-container">
-                <div class="title"> 开源项目 </div>
+                <div class="title"> core保证日志写入 </div>
                 <div class="info">
-                    <div class="create_time">创建:2023-10-27 17:42</div>
-                    <div class="update_time">更新:2025-04-20 00:05</div>
+                    <div class="create_time">创建:2025-04-27 23:54</div>
+                    <div class="update_time">更新:2025-04-27 23:54</div>
                 </div>
                 <div class="line"></div>
 
-                <div id="md-container-content" style="position: relative;"><p>c/c++相关优秀开源项目</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/weolar/miniblink49">miniblink49</a></td>
-<td>一个小巧、轻量的浏览器内核, 用来取代wke和libcef</td>
-</tr>
-<tr>
-<td>libev</td>
-<td>功能齐全，高性能的时间循环，轻微地仿效libevent，但是不再像libevent一样有局限性，也修复了它的一些bug</td>
-</tr>
-<tr>
-<td>libuv</td>
-<td>跨平台异步I/O</td>
-</tr>
-<tr>
-<td>libevent</td>
-<td>事件通知库</td>
-</tr>
-<tr>
-<td>LZ4</td>
-<td>非常快速的压缩算法</td>
-</tr>
-<tr>
-<td>Snappy</td>
-<td>快速压缩和解压缩</td>
-</tr>
-<tr>
-<td>miniz</td>
-<td>单一的C源文件，紧缩/膨胀压缩库，使用zlib兼容API，ZIP归档读写，PNG写方式</td>
-</tr>
-<tr>
-<td>Thrust</td>
-<td>类似于C++标准模板库的并行算法库</td>
-</tr>
-<tr>
-<td>VexCL</td>
-<td>用于OpenCL/CUDA 的C++向量表达式模板库</td>
-</tr>
-<tr>
-<td>LevelDB</td>
-<td>快速键值存储库</td>
-</tr>
-<tr>
-<td>RocksDB</td>
-<td>来自Facebook的嵌入键值的快速存储</td>
-</tr>
-<tr>
-<td>SQLite</td>
-<td>一个完全嵌入式的，功能齐全的关系数据库，只有几百KB，可以正确包含到你的项目中</td>
-</tr>
-<tr>
-<td>Caffe</td>
-<td>快速的神经网络框架</td>
-</tr>
-<tr>
-<td>CCV</td>
-<td>以C语言为核心的现代计算机视觉库</td>
-</tr>
-<tr>
-<td>mlpack</td>
-<td>可扩展的C++机器学习库</td>
-</tr>
-<tr>
-<td>OpenCV</td>
-<td>开源计算机视觉库</td>
-</tr>
-<tr>
-<td>Recommender</td>
-<td>使用协同过滤进行产品推荐/建议的C语言库</td>
-</tr>
-<tr>
-<td>SHOGUN</td>
-<td>Shogun 机器学习工具</td>
-</tr>
-<tr>
-<td>sofia-ml</td>
-<td>用于机器学习的快速增量算法套件</td>
-</tr>
-<tr>
-<td>Box2D</td>
-<td>2D的游戏物理引擎</td>
-</tr>
-<tr>
-<td>Bullet</td>
-<td>3D的游戏物理引擎</td>
-</tr>
-<tr>
-<td>Chipmunk</td>
-<td>快速，轻量级的2D游戏物理库</td>
-</tr>
-<tr>
-<td>LiquidFun</td>
-<td>2D的游戏物理引擎</td>
-</tr>
-<tr>
-<td>ODE</td>
-<td>开放动力学引擎-开源，高性能库，模拟刚体动力学</td>
-</tr>
-<tr>
-<td>ofxBox2d</td>
-<td>Box2D开源框架包装器</td>
-</tr>
-<tr>
-<td>Simbody</td>
-<td>高性能C++多体动力学/物理库，模拟关节生物力学和机械系统，像车辆，机器人和人体骨骼</td>
-</tr>
-</tbody>
-</table></div>
+                <div id="md-container-content" style="position: relative;"><pre><code class="c language-c">#include &lt;signal.h&gt;
+#include &lt;syslog.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+
+void handle_core_signal(int sig, siginfo_t* info, void* context) {
+    static int happened = 0;
+    if (!happened) { // 避免递归core
+        happened = 1;
+        // 这里可以处理遇到core时的处理函数，例如日志下发，等等逻辑
+        printf("出现错误\n");
+    }
+
+    // 恢复默认信号处理
+    struct sigaction sa;
+    sa.sa_handler = SIG_DFL;
+    sigemptyset(&amp;sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(sig, &amp;sa, 0);
+    // 重新触发信号（生成核心文件）
+    kill(getpid(), sig);
+}
+
+int main() {
+    // 设置信号处理
+    struct sigaction sa;
+    sa.sa_sigaction = handle_core_signal;
+    sigemptyset(&amp;sa.sa_mask);
+    sa.sa_flags = SA_SIGINFO;
+    sigaction(SIGSEGV, &amp;sa, 0);  // 段错误
+    sigaction(SIGABRT, &amp;sa, 0);  // 中止信号
+    sigaction(SIGFPE,  &amp;sa, 0);  // 浮点异常
+
+    // 模拟触发段错误（解引用空指针）
+    int* ptr = 0;
+    *ptr = 42;  // 这里会触发SIGSEGV
+
+    return 0;
+}
+</code></pre></div>
             </div>
         </div>
     </div>
