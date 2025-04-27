@@ -137,6 +137,12 @@
 <a clas="node-name" href="./1745082315832.html">好文推荐</a>
 </div>
 </div>
+<div class="node-item">
+<div id="article-1745765918114" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./1745765918114.html">导表设计</a>
+</div>
+</div>
 </div>
 </div>
 <div class="node-dir">
@@ -502,24 +508,86 @@
                 <div class="title"> 条件系统 </div>
                 <div class="info">
                     <div class="create_time">创建:2025-04-24 22:27</div>
-                    <div class="update_time">更新:2025-04-24 22:27</div>
+                    <div class="update_time">更新:2025-04-27 22:55</div>
                 </div>
                 <div class="line"></div>
 
                 <div id="md-container-content" style="position: relative;"><p>条件系统是游戏系统的重要的系统。好的条件系统可以让任务，成就，活动，功能开关等等都获益。</p>
 <h3 id="">表设计</h3>
 <h4 id="-1">条件类型表</h4>
-<p>|条件类型id|类型说明|值更新方式|类型参数个数|参数说明|<br />
-|-|-|-|-|-|<br />
-|int|string|enum{k<em>set,k</em>add}|int|<br />
-|1|击败x级y怪物|k<em>add|2|[x等级,y怪物]
-|2|当前等级达到x级|k</em>set|1|[当前等级]</p>
+<table>
+<thead>
+<tr>
+<th>条件类型id</th>
+<th>类型说明</th>
+<th>值更新方式</th>
+<th>类型参数个数</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>string</td>
+<td><code>enum{k_set,k_add}</code></td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>击败x级y怪物</td>
+<td>k_add</td>
+<td>2</td>
+<td><code>[x等级,y怪物]</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>当前等级达到x级</td>
+<td>k_set</td>
+<td>1</td>
+<td><code>[当前等级]</code></td>
+</tr>
+</tbody>
+</table>
 <h4 id="-2">条件表</h4>
-<p>|条件id|条件类型|条件参数|目标进度|默认激活|消费控制|<br />
-|-|-|-|-|-|-|<br />
-|int|int|int[5]|int|bool|enum{k<em>remove,k</em>reduce}|<br />
-|1001|1|1001|1|true|k<em>remove|
-|2001|1|1001|1|true|k</em>remove|</p>
+<table>
+<thead>
+<tr>
+<th>条件id</th>
+<th>条件类型</th>
+<th>条件参数</th>
+<th>目标进度</th>
+<th>默认激活</th>
+<th>消费控制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>int</td>
+<td><code>int[5]</code></td>
+<td>int</td>
+<td>bool</td>
+<td><code>enum{k_remove,k_reduce}</code></td>
+</tr>
+<tr>
+<td>1001</td>
+<td>1</td>
+<td>1001</td>
+<td>1</td>
+<td>true</td>
+<td>k_remove</td>
+</tr>
+<tr>
+<td>2001</td>
+<td>1</td>
+<td>1001</td>
+<td>1</td>
+<td>true</td>
+<td>k_remove</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>默认激活: 常用于成就类，或者长期统计类任务</li>
 <li>消费控制：控制该条件被consume后的行为<ul>
@@ -527,10 +595,30 @@
 <li>k_reduce: 减掉对应的次数，用于可循环任务。例如战令中 消耗钻石。可以重复完成</li></ul></li>
 </ul>
 <h4 id="-3">条件组</h4>
-<p>|条件id|条件列表|是否必须完成|至少完成个数|<br />
-|-|-|-|-|<br />
-|int|int[5]|bool[5]|int|<br />
-|100001|1001,1002,1003|true,false,false|2</p>
+<table>
+<thead>
+<tr>
+<th>条件id</th>
+<th>条件列表</th>
+<th>是否必须完成</th>
+<th>至少完成个数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td><code>int[5]</code></td>
+<td><code>bool[5]</code></td>
+<td>int</td>
+</tr>
+<tr>
+<td>100001</td>
+<td>1001,1002,1003</td>
+<td>true,false,false</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>条件id: 此条件id与条件表id意义相同，但是值范围不同。可以用同一个函数操作。使用者不需要区分条件和条件组</li>
 <li>是否必须完成: 1:1对应条件列表，控制该任务是否必须完成</li>
@@ -596,10 +684,39 @@ void user_condition_report(struct user* user, int type, int* params, int value);
 
     <script>
         let mdContainer = document.getElementById("md-container");
-        mdContainer.querySelectorAll("pre code");
         hljs.initHighlightingOnLoad();
         for (const it of mdContainer.querySelectorAll("pre code")) {
             hljs.highlightBlock(it);
+        }
+        for (const pre of mdContainer.querySelectorAll("pre")) {
+            let last = pre.previousElementSibling;
+            if (last && last.tagName == "P" && (last.innerHTML.startsWith("+&gt; ") || last.innerHTML.startsWith("-&gt; "))) {
+                let desc = document.createElement("div");
+                desc.className = 'foldable';
+                if (last.innerHTML.startsWith("-&gt; ")) {
+                    desc.innerHTML = "▶ " + last.innerHTML.substring("-&gt; ".length);
+                    pre.style.display = "none";
+                } else {
+                    desc.innerHTML = "▼ " + last.innerHTML.substring("+&gt; ".length);
+                    pre.style.display = "";
+                }
+                pre.style.marginTop = "0";
+                pre.style.marginBottom = "0";
+
+                last.innerHTML = "";
+                last.className += ' foldable-parent';
+                last.addEventListener("click", () => {
+                    if (pre.style.display == "none") {
+                        desc.innerHTML = "▼ " + desc.innerHTML.substring("▶ ".length);
+                        pre.style.display = "";
+                    } else {
+                        desc.innerHTML = "▶ " + desc.innerHTML.substring("▼ ".length);
+                        pre.style.display = "none";
+                    }
+                });
+                last.appendChild(desc);
+                last.appendChild(pre);
+            }
         }
 
         //点击查看原图

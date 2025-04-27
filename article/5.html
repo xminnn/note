@@ -137,6 +137,12 @@
 <a clas="node-name" href="./1745082315832.html">好文推荐</a>
 </div>
 </div>
+<div class="node-item">
+<div id="article-1745765918114" class="node-one">
+<div class="tab_1"></div>
+<a clas="node-name" href="./1745765918114.html">导表设计</a>
+</div>
+</div>
 </div>
 </div>
 <div class="node-dir">
@@ -562,10 +568,39 @@ at+ 打开一个叫string的文件，a表示append,就是说写入处理的时�
 
     <script>
         let mdContainer = document.getElementById("md-container");
-        mdContainer.querySelectorAll("pre code");
         hljs.initHighlightingOnLoad();
         for (const it of mdContainer.querySelectorAll("pre code")) {
             hljs.highlightBlock(it);
+        }
+        for (const pre of mdContainer.querySelectorAll("pre")) {
+            let last = pre.previousElementSibling;
+            if (last && last.tagName == "P" && (last.innerHTML.startsWith("+&gt; ") || last.innerHTML.startsWith("-&gt; "))) {
+                let desc = document.createElement("div");
+                desc.className = 'foldable';
+                if (last.innerHTML.startsWith("-&gt; ")) {
+                    desc.innerHTML = "▶ " + last.innerHTML.substring("-&gt; ".length);
+                    pre.style.display = "none";
+                } else {
+                    desc.innerHTML = "▼ " + last.innerHTML.substring("+&gt; ".length);
+                    pre.style.display = "";
+                }
+                pre.style.marginTop = "0";
+                pre.style.marginBottom = "0";
+
+                last.innerHTML = "";
+                last.className += ' foldable-parent';
+                last.addEventListener("click", () => {
+                    if (pre.style.display == "none") {
+                        desc.innerHTML = "▼ " + desc.innerHTML.substring("▶ ".length);
+                        pre.style.display = "";
+                    } else {
+                        desc.innerHTML = "▶ " + desc.innerHTML.substring("▼ ".length);
+                        pre.style.display = "none";
+                    }
+                });
+                last.appendChild(desc);
+                last.appendChild(pre);
+            }
         }
 
         //点击查看原图
