@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>blender</title>
+    <title>排名系统</title>
     <link rel="stylesheet" href="../index.css" cache="force">
 </head>
 
@@ -535,19 +535,69 @@
         </div>
         <div class="right-container">
             <div id="md-container">
-                <div class="title"> blender </div>
+                <div class="title"> 排名系统 </div>
                 <div class="info">
-                    <div class="create_time">创建:2025-04-19 21:55</div>
-                    <div class="update_time">更新:2025-04-19 21:55</div>
+                    <div class="create_time">创建:2025-04-29 22:37</div>
+                    <div class="update_time">更新:2025-04-29 22:37</div>
                 </div>
                 <div class="line"></div>
 
-                <div id="md-container-content" style="position: relative;"><p>光晕效果：<a href="https://www.renderbus.com/share/post-id-2067/">https://www.renderbus.com/share/post-id-2067/</a><br />
-    1. cycle渲染器作为示范<br />
-    2. 材质需要设置自发光，强度调高一些</p>
-<p>透明背景：<a href="https://jingyan.baidu.com/article/f96699bbff4f9cc84e3c1bdb.html">https://jingyan.baidu.com/article/f96699bbff4f9cc84e3c1bdb.html</a><br />
-【Blender/渲染】使用阻隔+蜡笔实现卡通风格透视效果<em>哔哩哔哩</em>bilibili <a href="https://www.bilibili.com/video/BV1dG411673W/">https://www.bilibili.com/video/BV1dG411673W/</a></p>
-<p>线变面：<a href="https://www.huixueba.net/information/detail/47649">https://www.huixueba.net/information/detail/47649</a></p></div>
+                <div id="md-container-content" style="position: relative;"><h3 id="">挑战目标</h3>
+<p>排名功能在游戏中十分重要。主要用于激励玩家不断成长。一般排名有以下几种区分</p>
+<ol>
+<li>全服/单服</li>
+<li>TopN(1000)/全部玩家排名</li>
+<li>实时排名/定时更新</li>
+</ol>
+<p><code>TopN(1000)</code> 和 <code>定时更新</code> 暂时不需要讨论，不论怎么实现都可，没有什么难点。常规实现方式就是TreeMap, Redis, 堆排序, 甚至用冒泡排序都可以。</p>
+<p>这里主要讨论 <code>全服排名+实时排名</code>。玩家可以实时获取自身的所在排序位置，至少支持1000w在榜玩家。每秒支持10w实时更新(不考虑网络层)。</p>
+<h3 id="-1">信息整理</h3>
+<ol>
+<li>redis底层是使用skiplist来实现的，性能与treemap比肩</li>
+<li>treemap或者skiplist都无法快速获取指定元素的位置，只能从前往后数，性能极差</li>
+<li>二分查找的性能也是log(n)的，而且因为数组是连续的内存，所以性能是远超treemap/skiplist这种内存随机访问的结构</li>
+<li>直接的数组结构，无指针，更加省内存</li>
+<li>插入排序在小内存上性能较好，支持动态更新。其他排序算法只能在静态数组上排序</li>
+<li>经过测试 在单个10w数量级数组上，二分查找+插入排序 的方式实现 map 功能，能够满足<code>每秒支持10w实时更新</code>的要求</li>
+</ol>
+<h3 id="-2">实现思路</h3>
+<p>基于<code>二分查找</code>在顺序<code>M*N</code>的数组上进行排序。在<code>M</code>上只会进行二分查找, <code>N</code>上才会涉及到插入或者删除。这样可以大大奖励内存的移动，保证插入性能。又能获得极致的查找性能, 快速获得元素的位置(排名)。</p>
+<p><img src="../res/排名系统.png" alt="alt text" /></p>
+<blockquote>
+  <p>代码仓库：<a href="https://github.com/xminnn/bsearch">https://github.com/xminnn/bsearch</a></p>
+</blockquote>
+<h3 id="-3">性能测试</h3>
+<p>bsearch_list 在1kw级别的数据上，仍然能够保持[插入+查找+删除]在<code>10us</code>以内完成。一下测试都是以<code>-O3</code>编译。</p>
+<pre><code class="sh language-sh">$ ./app 10000000 8000 0
+start
+put time cost: 43112ms, count=10000000. 4.31127us/op
+put one time cost: 3us, count=10000001
+get one time cost: 1us, count=10000001
+get time cost: 7968ms, 0.796849us/op. error=0
+del time cost: 24563ms, count=1. 2.45634us/op, error=0
+
+$ ./app 10000000 8000 0
+put time cost: 43361ms, count=10000000. 4.33611us/op
+put one time cost: 2us, count=10000001
+get one time cost: 0us, count=10000001
+get time cost: 8536ms, 0.853652us/op. error=0
+del time cost: 25340ms, count=1. 2.53402us/op, error=0
+</code></pre>
+<p>对比map的实现：</p>
+<pre><code class="sh language-sh">g++ -O3 test_map.cpp -o app
+$ ./app 10000000
+start
+put time cost: 12945ms, count=10000000. 1.29454us/op
+put one cost: 3us
+get pos cost: 101946us, pos=793462
+</code></pre>
+<p>总结：</p>
+<ol>
+<li>map插入性能好，应为数树结构，不需要移动内存。但是获取排名性能极差，无法用于实时排名。</li>
+<li>bsearch_list：即使在1kw的数据，实时更新获取排名也能在<code>10us(获取1us,插入5us,删除3us)</code>以内完成</li>
+<li>bsearch_list的缺陷可以通过内存硬件的优化提升(提升内存移动速度)，获得更大的并发。</li>
+<li>bsearch_list代码及其简单，基于数组。可以自定义内存的申请和释放。很容易利用mmap/共享内存实现持久化。</li>
+</ol></div>
             </div>
         </div>
     </div>

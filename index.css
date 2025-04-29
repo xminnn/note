@@ -36,20 +36,20 @@ a:hover {
 }
 
 h1 {
-    border-bottom: 1px solid rgb(157, 157, 157);
+    border-bottom: 1px dashed rgb(157, 157, 157);
     padding: 5px 0px;
     font-size: 1.6em;
 }
 
 h2 {
-    border-bottom: 1px solid rgb(157, 157, 157, 0.8);
+    border-bottom: 1px dashed rgb(157, 157, 157, 0.8);
     margin-block-start: 0;
     padding: 5px 0px;
     font-size: 1.5em;
 }
 
 h3 {
-    border-bottom: 1px solid rgb(157, 157, 157, 0.6);
+    border-bottom: 1px dashed rgb(157, 157, 157, 0.6);
     margin-block-start: 0;
     padding: 1px 0px;
     font-size: 1.4em;
@@ -252,9 +252,12 @@ blockquote a:hover {
 }
 
 .right-container #md-container {
+    position: relative;
     padding: 0 20px;
     color: rgb(221, 221, 221);
-    max-width: 800px;
+    width: calc(100% - 140px);
+    min-width: 600px;
+    /* max-width: 800px; */
     margin: 50px 0;
     margin-left: 50px;
 }
@@ -295,7 +298,8 @@ blockquote a:hover {
 
 #md-container img {
     border-radius: 4px;
-    max-width: 100%;
+    width: calc(100% - 40px);
+    max-width: 800px;
     max-height: 500px;
     box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.1), 0 0px 12px 0 rgba(0, 0, 0, 0.1);
 }
@@ -370,33 +374,4 @@ blockquote a:hover {
     top: 0;
     left: 0;
     z-index: 1;
-}
-
-@media screen and (max-width: 600px) {
-    body {
-        font-size: 13px;
-    }
-
-    .right-container {
-        width: 100%;
-    }
-
-    .img-view-img {
-        margin: auto;
-        top: 0;
-        left: 0;
-        max-width: 100%;
-        max-width: 100%;
-        z-index: 1;
-    }
-
-    .right-container #md-container {
-        max-width: 100% !important;
-        padding: 0 2em !important;
-    }
-
-    h1,
-    h2 {
-        background-color: #eeeeee00;
-    }
 }
