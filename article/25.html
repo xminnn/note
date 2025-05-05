@@ -538,14 +538,72 @@
                 <div class="title"> mongo </div>
                 <div class="info">
                     <div class="create_time">创建:2023-10-27 16:41</div>
-                    <div class="update_time">更新:2023-11-29 10:39</div>
+                    <div class="update_time">更新:2025-05-05 19:05</div>
                 </div>
                 <div class="line"></div>
 
                 <div id="md-container-content" style="position: relative;"><p>高可用mongodb集群(分片+副本):性能测试<br />
 <a href="https://developer.aliyun.com/article/1047466">https://developer.aliyun.com/article/1047466</a></p>
 <p>百万级高并发mongo集群性能数十倍提升优化实践(上)<br />
-<a href="https://zhuanlan.zhihu.com/p/265375787">https://zhuanlan.zhihu.com/p/265375787</a></p></div>
+<a href="https://zhuanlan.zhihu.com/p/265375787">https://zhuanlan.zhihu.com/p/265375787</a></p>
+<ol>
+<li><p>MongoDB 的存储结构是什么？</p>
+<ul>
+<li>文档（Document）：MongoDB 中最基本的单元，由 BSON 键值对（key-value）组成，类似于关系型数据库中的行（Row）。</li>
+<li>集合（Collection）：一个集合可以包含多个文档，类似于关系型数据库中的表（Table）。</li>
+<li>数据库（Database）：一个数据库中可以包含多个集合，可以在 MongoDB 中创建多个数据库，类似于关系型数据库中的数据库（Database）。</li></ul></li>
+<li><p>Mongo集群</p>
+<ol>
+<li>复制集群</li>
+<li>分片集群</li></ol></li>
+<li><p>MongoDB中的分片是什么？</p>
+<p>在多台计算机上存储数据记录的过程称为分片。这是一种MongoDB方法，可以满足数据增长的需求。它是数据库或搜索引擎中数据的水平分区。每个分区称为分片或数据库分片。</p></li>
+<li><p>MongoDB中支持过期</p></li>
+<li><p>常用操作表达式</p>
+<p>命令示例</p>
+<pre><code class="js language-js">// 查询
+db.collection.find({ &lt;query&gt; })
+// 聚合查询
+db.collection.aggregate([
+    { $match: { &lt;query&gt; } },
+    { $group: { _id: "$&lt;field&gt;", count: { $sum: 1 } } }
+])
+</code></pre>
+<p>常用操作</p>
+<pre><code class="js language-js">$and
+$not
+$or
+
+$cmp
+$eq
+$gt
+$gte
+$lt
+$lte
+$ne
+
+$avg
+$count
+$max
+$min
+$sum
+$top
+
+$match
+$group
+</code></pre></li>
+<li><p>MongoDB 支持多种类型的索引，</p>
+<p>包括单字段索引、复合索引、多键索引、哈希索引、文本索引、 地理位置索引等，每种类型的索引有不同的使用场合。</p>
+<p>单字段索引： 建立在单个字段上的索引，索引创建的排序顺序无所谓，MongoDB 可以头/尾开始遍历。<br />
+复合索引： 建立在多个字段上的索引，也可以称之为组合索引、联合索引。<br />
+多键索引：MongoDB 的一个字段可能是数组，在对这种字段创建索引时，就是多键索引。MongoDB 会为数组的每个值创建索引。就是说你可以按照数组里面的值做条件来查询，这个时候依然会走索引。<br />
+哈希索引：按数据的哈希值索引，用在哈希分片集群上。<br />
+文本索引： 支持对字符串内容的文本搜索查询。文本索引可以包含任何值为字符串或字符串元素数组的字段。一个集合只能有一个文本搜索索引，但该索引可以覆盖多个字段。MongoDB 虽然支持全文索引，但是性能低下，暂时不建议使用。<br />
+地理位置索引： 基于经纬度的索引，适合 2D 和 3D 的位置查询。<br />
+唯一索引：确保索引字段不会存储重复值。如果集合已经存在了违反索引的唯一约束的文档，则后台创建唯一索引会失败。<br />
+TTL 索引：TTL 索引提供了一个过期机制，允许为每一个文档设置一个过期时间，当一个文档达到预设的过期时间之后就会被删除。</p>
+<p>MongoDB 的复合索引遵循左前缀原则</p></li>
+</ol></div>
             </div>
         </div>
     </div>

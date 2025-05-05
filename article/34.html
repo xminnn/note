@@ -538,15 +538,72 @@
                 <div class="title"> 缓存淘汰算法 </div>
                 <div class="info">
                     <div class="create_time">创建:2023-10-27 16:46</div>
-                    <div class="update_time">更新:2023-10-27 16:55</div>
+                    <div class="update_time">更新:2025-05-05 19:12</div>
                 </div>
                 <div class="line"></div>
 
-                <div id="md-container-content" style="position: relative;"><p>FIFO<br />
-LRU<br />
-LRU<br />
-Two queues<br />
-LIRS</p></div>
+                <div id="md-container-content" style="position: relative;"><ol>
+<li><p><strong>FIFO</strong>：全称为 First-In-First-Out，也就是先进先出。这种算法在处理缓存时，会优先淘汰最早进入缓存的数据。这种算法实现简单，但可能会导致一些经常使用的数据被淘汰。</p></li>
+<li><p><strong>LRU</strong>：全称为 Least Recently Used，也就是最近最少使用。这种算法在处理缓存时，会优先淘汰最长时间未被使用的数据。LRU算法比FIFO更加智能，因为它考虑到了数据的使用频率。</p>
+<pre><code class="cpp language-cpp">#include &lt;list&gt;
+#include &lt;unordered_map&gt;
+
+template&lt;typename K, typename V&gt;
+class LRUCache {
+    int capacity;
+    std::list&lt;std::pair&lt;K, V&gt;&gt; list;
+    std::unordered_map&lt;K, typename std::list&lt;std::pair&lt;K, V&gt;&gt;::iterator&gt; data;
+    V null;
+
+public:
+    LRUCache(int capacity): capacity(capacity) {}<pre><code>bool is_null(const V &amp;amp;it) {
+    return &amp;amp;it == &amp;amp;null;
+}
+
+V &amp;amp;get(const K k) {
+    auto it = data.find(k);
+    if (it == data.end()) {
+        return null;
+    }
+    list.splice(list.begin(), list, it-&amp;gt;second);    // 移动到头部
+    return it-&amp;gt;second-&amp;gt;second;
+}
+
+void put(const K k, const V v) {
+    auto it = data.find(k);
+    if (it != data.end()) {
+        it-&amp;gt;second-&amp;gt;second = v;
+        list.splice(list.begin(), list, it-&amp;gt;second); 
+        return;
+    }
+
+    if (list.size() &amp;gt;= this-&amp;gt;capacity) { // 检查容量是否超出
+        auto last = list.back();
+        data.erase(last.first);
+        list.pop_back();
+    }
+
+    list.emplace_front(k, v);
+    data[k] = list.begin();
+}
+</code></pre>};
+
+int main(int argc, char const *argv[]) {
+    LRUCache&lt;int, int&gt; cache(2);
+    cache.put(1, 1);
+    cache.put(2, 2);
+    cache.put(3, 3);
+    cache.put(4, 4);
+    printf("%d\n", cache.is_null(cache.get(1)));
+    printf("%d\n", cache.is_null(cache.get(2)));
+    printf("%d\n", cache.is_null(cache.get(3)));
+    printf("%d\n", cache.is_null(cache.get(4)));
+    return 0;
+}
+</code></pre></li>
+<li><p><strong>Two queues</strong>：这是一种改进的LRU算法。它将缓存分为两个队列，一个用于存储最近使用过一次的数据，另一个用于存储最近使用过多次的数据。这样可以更有效地利用缓存，因为经常使用的数据不太可能被淘汰。</p></li>
+<li><p><strong>LIRS</strong>：全称为 Low Inter-reference Recency Set，也就是低交互引用最近集。这是一种更加复杂的缓存淘汰算法，它考虑到了数据的使用频率和最近的使用情况。LIRS算法会优先淘汰那些最近未被使用且使用频率较低的数据。</p></li>
+</ol></div>
             </div>
         </div>
     </div>

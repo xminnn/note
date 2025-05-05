@@ -538,11 +538,23 @@
                 <div class="title"> 排序算法 </div>
                 <div class="info">
                     <div class="create_time">创建:2023-10-27 16:46</div>
-                    <div class="update_time">更新:2025-01-20 23:09</div>
+                    <div class="update_time">更新:2025-05-05 19:11</div>
                 </div>
                 <div class="line"></div>
 
-                <div id="md-container-content" style="position: relative;"><ol>
+                <div id="md-container-content" style="position: relative;"><p>｜排序算法 | 平均时间复杂度        | 最差时间复杂度        | 空间复杂度                                                       | 数据对象稳定性｜<br />
+｜------|-----------------------|-----------------------|------------------------------------------------------------------|-----------｜<br />
+｜冒泡排序 | O(n<sup>2</sup>)      | O(n<sup>2</sup>)      | O(1)                                                             | 稳定｜<br />
+｜选择排序 | O(n<sup>2</sup>)      | O(n<sup>2</sup>)      | O(1)                                                             | 数组不稳定、链表稳定｜<br />
+｜插入排序 | O(n<sup>2</sup>)      | O(n<sup>2</sup>)      | O(1)                                                             | 稳定｜<br />
+｜快速排序 | O(n<em>log<sub>2</sub>n) | O(n<sup>2</sup>)      | O(log<sub>2</sub>n) (递归的原因)，如果每次一半都没有元素，最坏O(n) | 不稳定｜
+｜堆排序   | O(n</em>log<sub>2</sub>n) | O(n<em>log<sub>2</sub>n) | O(1)                                                             | 不稳定｜
+｜归并排序 | O(n</em>log<sub>2</sub>n) | O(n<em>log<sub>2</sub>n) | O(n)                                                             | 稳定｜
+｜希尔排序 | O(n</em>log<sup>2</sup>n) | O(n<sup>2</sup>)      | O(1)                                                             | 不稳定｜<br />
+｜计数排序 | O(n+m)                | O(n+m)                | O(n+m)                                                           | 稳定｜<br />
+｜桶排序   | O(n)                  | O(n)                  | O(m)                                                             | 稳定｜<br />
+｜基数排序 | O(k*n)                | O(n<sup>2</sup>)      |                                                                  | 稳定｜</p>
+<ol>
 <li><p>冒泡</p>
 <pre><code class="c language-c">void sort(int *arr, int len) {
     for (int i = 0; i &lt; len; i++) {
@@ -603,11 +615,110 @@
     quick_sort(arr, i + 1, high);
 }
 </code></pre></li>
-<li><p>插入</p></li>
-<li><p>归并</p></li>
-<li><p>堆</p></li>
-<li><p>希尔排序</p></li>
-<li><p>计数排序</p></li>
+<li><p>插入<br />
+<code>c
+void insertion_sort(int arr[], int len) {
+    for (int i = 1; i != len; ++i) {    // 第0个元素可以认为是排序好的，所以从1开始
+        int key = arr[i];
+        for (int j = i - 1; j &gt;= 0; j--) {
+            if (arr[j] &gt; key) {
+                arr[j + 1] = arr[j];
+            } else {
+                arr[j + 1] = key;
+                break;
+            }
+        }
+    }
+}
+</code></p></li>
+<li><p>归并<br />
+<code>c
+void merge_sort_recursive(int* arr, int* temp, int start, int end) {
+    if (start &gt;= end)
+        return;
+    int len = end - start, mid = (len &gt;&gt; 1) + start;
+    int start1 = start, end1 = mid;
+    int start2 = mid + 1, end2 = end;
+    merge_sort_recursive(arr, temp, start1, end1);
+    merge_sort_recursive(arr, temp, start2, end2);
+    int k = start;
+    while (start1 &lt;= end1 &amp;&amp; start2 &lt;= end2)
+        temp[k++] = arr[start1] &lt; arr[start2] ? arr[start1++] : arr[start2++];
+    while (start1 &lt;= end1)
+        temp[k++] = arr[start1++];
+    while (start2 &lt;= end2)
+        temp[k++] = arr[start2++];
+    for (k = start; k &lt;= end; k++)
+        arr[k] = temp[k];
+}
+void merge_sort(int* arr, int len) {
+    int* temp = (int*)malloc(sizeof(int) * len);
+    merge_sort_recursive(arr, temp, 0, len - 1);
+    free(temp);
+}
+</code></p></li>
+<li><p>堆<br />
+<code>c
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void heapify(int* arr, int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    if (left &lt; n &amp;&amp; arr[left] &gt; arr[largest]){
+        largest = left;
+    }
+    if (right &lt; n &amp;&amp; arr[right] &gt; arr[largest]){
+        largest = right;
+    }
+    if (largest != i) {  // 如果最大不是根
+        swap(&amp;arr[i], &amp;arr[largest]);
+        heapify(arr, n, largest); // 递归地定义子堆
+    }
+}
+void heap_sort(int* arr, int n) {
+    for (int i = n / 2 - 1; i &gt;= 0; i--) {   // 从最后一个非叶子节点开始，构建堆
+        heapify(arr, n, i);
+    }
+    for (int i = n - 1; i &gt; 0; i--) {
+        swap(&amp;arr[0], &amp;arr[i]);    // 移动当前根到最后
+        heapify(arr, i, 0);        // 在减小的堆上调用 max heapify
+    }
+}
+</code></p></li>
+<li><p>希尔排序<br />
+<code>c
+void shell_sort(int* arr, int len) {
+    int temp;
+    for (int step = len / 2; step &gt; 0; step /= 2) {
+        for (int i = step; i &lt; len; i++) {
+            temp = arr[i];
+            int j = i - step;
+            while (j &gt;= 0 &amp;&amp; arr[j] &gt; temp) {
+                arr[j + step] = arr[j];
+                j -= step;
+            }
+            arr[j + step] = temp;
+        }
+    }
+}
+</code></p></li>
+<li><p>计数排序<br />
+<code>C
+void counting_sort(const int *ini_arr, int *sorted_arr, const int n, const int max_val) {
+    int *count_arr = (int *) calloc(max_val, sizeof(int));
+    for (int i = 0; i &lt; n; i++)
+        count_arr[ini_arr[i]]++; // 计数
+    for (int i = 1; i &lt; max_val; i++)
+        count_arr[i] += count_arr[i - 1]; // 定位
+    for (int i = n; i &gt; 0; i--)
+        sorted_arr[--count_arr[ini_arr[i - 1]]] = ini_arr[i - 1];
+    free(count_arr);
+}
+</code></p></li>
 <li><p>桶排序</p></li>
 <li><p>基数排序</p></li>
 <li><p>多路归并排序</p></li>
